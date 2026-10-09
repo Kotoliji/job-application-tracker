@@ -43,6 +43,11 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # No SMTP server in development — write outgoing mail to tmp/mails/ instead
+  # so a follow-up reminder is actually visible without extra setup.
+  config.action_mailer.delivery_method = :file
+  config.action_mailer.file_settings = { location: Rails.root.join("tmp/mails") }
+
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Print deprecation notices to the Rails logger.

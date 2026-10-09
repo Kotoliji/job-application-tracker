@@ -35,3 +35,11 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 /public/assets
+
+# Not needed in the production image.
+/spec/
+/.github/
+/.rubocop.yml
+/docker-compose.yml
+/Dockerfile.dev
+/README.md
