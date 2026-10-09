@@ -17,6 +17,16 @@ Built to mirror how a real job search actually works, not a generic CRUD demo:
   applications; it never sends anything on your behalf. No automated outreach,
   no scraping — just a record of what you actually did.
 
+## Screenshots
+
+Dashboard — outcome board plus the companies/freelance split (demo data):
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+A channel's full history, from first contact to offer:
+
+![Channel history](docs/screenshots/channel-history.png)
+
 ## Features
 
 - Organizations split into **companies** and **freelance clients**, each with
