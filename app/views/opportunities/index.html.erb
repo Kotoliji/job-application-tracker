@@ -1,0 +1,17 @@
+<h1>Opportunities</h1>
+
+<table>
+  <thead><tr><th>Title</th><th>Organization</th><th>Track</th><th>Priority</th><th>Posting status</th><th>Channels</th></tr></thead>
+  <tbody>
+    <% @opportunities.each do |opportunity| %>
+      <tr>
+        <td><%= link_to opportunity.title, opportunity %></td>
+        <td><%= link_to opportunity.organization.name, opportunity.organization %></td>
+        <td><%= opportunity.track.humanize %></td>
+        <td><span class="badge <%= "priority-high" if opportunity.high? %>"><%= opportunity.priority.humanize %></span></td>
+        <td><%= opportunity.posting_status.humanize %></td>
+        <td><%= opportunity.channels.size %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,51 @@
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.3
+  SuggestExtensions: false
+  Exclude:
+    - "db/schema.rb"
+    - "bin/**/*"
+    - "vendor/**/*"
+    - "node_modules/**/*"
+
+Style/Documentation:
+  Enabled: false
+
+# Small single-purpose app — flash/notice strings don't warrant full i18n.
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - "config/initializers/devise.rb"
+
+Metrics/AbcSize:
+  Exclude:
+    - "db/migrate/**/*"
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - "config/**/*"
+
+Metrics/MethodLength:
+  Max: 15
+  Exclude:
+    - "db/migrate/**/*"
+
+RSpec/ExampleLength:
+  Max: 15
+
+RSpec/MultipleExpectations:
+  Max: 3
+
+RSpec/NestedGroups:
+  Max: 4

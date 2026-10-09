@@ -1,0 +1,67 @@
+<p><%= link_to @channel.opportunity.title, @channel.opportunity %></p>
+<h1><%= @channel.channel_type.humanize %> channel</h1>
+
+<p>
+  <span class="badge outcome-<%= @channel.outcome_status %>"><%= @channel.outcome_status.humanize %></span>
+  <% if @channel.follow_up_at.present? %>
+    <span class="badge">Follow up by <%= @channel.follow_up_at.to_date %></span>
+  <% end %>
+</p>
+
+<table>
+  <tbody>
+    <% if @channel.link.present? %>
+      <tr><th>Link</th><td><%= link_to @channel.link, @channel.link %></td></tr>
+    <% end %>
+    <% if @channel.contact_name.present? %>
+      <tr><th>Contact</th><td><%= @channel.contact_name %> <%= "<#{@channel.contact_email}>" if @channel.contact_email.present? %></td></tr>
+    <% end %>
+    <% if @channel.cv_version.present? %>
+      <tr><th>CV version</th><td><%= @channel.cv_version %></td></tr>
+    <% end %>
+    <% if @channel.material.attached? %>
+      <tr><th>Material</th><td><%= link_to "Download", rails_blob_path(@channel.material, disposition: "attachment") %></td></tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to "Edit", edit_channel_path(@channel) %>
+  <%= button_to "Delete", @channel, method: :delete, data: { turbo_confirm: "Delete this channel and its history?" }, class: "link-button" %>
+</p>
+
+<h2>History</h2>
+<ul class="timeline">
+  <% @submission_events.each do |event| %>
+    <li>
+      <time><%= event.occurred_at.strftime("%Y-%m-%d %H:%M") %></time>
+      <strong><%= event.event_type.humanize %></strong>
+      <% if event.notes.present? %> &mdash; <%= event.notes %><% end %>
+    </li>
+  <% end %>
+  <% if @submission_events.empty? %>
+    <li>No events recorded yet.</li>
+  <% end %>
+</ul>
+
+<h2>Record an event</h2>
+<%= form_with model: @new_event, url: channel_submission_events_path(@channel), class: "form" do |f| %>
+  <div>
+    <%= f.label :event_type %>
+    <%= f.select :event_type, SubmissionEvent.event_types.keys.map { |k| [k.humanize, k] } %>
+  </div>
+
+  <div>
+    <%= f.label :occurred_at %>
+    <%= f.datetime_field :occurred_at, value: Time.current.strftime("%Y-%m-%dT%H:%M") %>
+  </div>
+
+  <div>
+    <%= f.label :notes %>
+    <%= f.text_area :notes, rows: 3 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Record event" %>
+  </div>
+<% end %>

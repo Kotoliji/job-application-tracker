@@ -1,0 +1,12 @@
+<h1>Time to follow up</h1>
+
+<p>
+  It's been <%= Channel::FOLLOW_UP_AFTER.inspect %> since you sent your
+  application to <strong><%= @organization.name %></strong> for
+  <strong><%= @opportunity.title %></strong> via <%= @channel.channel_type %>,
+  with no response yet.
+</p>
+
+<p>
+  <%= link_to "Open this opportunity", opportunity_url(@opportunity) %>
+</p>

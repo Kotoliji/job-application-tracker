@@ -1,0 +1,66 @@
+<%= form_with model: opportunity, url: form_url, class: "form" do |f| %>
+  <% if opportunity.errors.any? %>
+    <div class="flash alert">
+      <strong><%= pluralize(opportunity.errors.count, "error") %> prevented this opportunity from being saved:</strong>
+      <ul>
+        <% opportunity.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :track %>
+    <%= f.select :track, Opportunity.tracks.keys.map { |k| [k.humanize, k] } %>
+  </div>
+
+  <div>
+    <%= f.label :priority %>
+    <%= f.select :priority, Opportunity.priorities.keys.map { |k| [k.humanize, k] } %>
+  </div>
+
+  <div>
+    <%= f.label :posting_status %>
+    <%= f.select :posting_status, Opportunity.posting_statuses.keys.map { |k| [k.humanize, k] } %>
+  </div>
+
+  <div>
+    <%= f.label :source_url %>
+    <%= f.text_field :source_url %>
+  </div>
+
+  <div>
+    <%= f.label :found_at %>
+    <%= f.date_field :found_at %>
+  </div>
+
+  <div>
+    <%= f.label :checked_at %>
+    <%= f.date_field :checked_at %>
+  </div>
+
+  <div>
+    <%= f.label :deadline %>
+    <%= f.date_field :deadline %>
+  </div>
+
+  <div>
+    <%= f.label :requirements %>
+    <%= f.text_area :requirements, rows: 4 %>
+  </div>
+
+  <div>
+    <%= f.label :product_description %>
+    <%= f.text_area :product_description, rows: 3 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

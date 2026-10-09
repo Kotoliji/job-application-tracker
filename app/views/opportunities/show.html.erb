@@ -1,0 +1,49 @@
+<p><%= link_to @opportunity.organization.name, @opportunity.organization %></p>
+<h1><%= @opportunity.title %></h1>
+
+<p>
+  <span class="badge"><%= @opportunity.track.humanize %></span>
+  <span class="badge <%= "priority-high" if @opportunity.high? %>"><%= @opportunity.priority.humanize %> priority</span>
+  <span class="badge">Posting: <%= @opportunity.posting_status.humanize %></span>
+</p>
+
+<p>
+  <% if @opportunity.found_at %>Found <%= @opportunity.found_at %>.<% end %>
+  <% if @opportunity.checked_at %>Last checked <%= @opportunity.checked_at %>.<% end %>
+  <% if @opportunity.deadline %>Deadline <%= @opportunity.deadline %>.<% end %>
+  <% if @opportunity.source_url.present? %><%= link_to "Source", @opportunity.source_url %><% end %>
+</p>
+
+<% if @opportunity.requirements.present? %>
+  <h3>Requirements</h3>
+  <p><%= simple_format @opportunity.requirements %></p>
+<% end %>
+
+<% if @opportunity.product_description.present? %>
+  <h3>Product / context</h3>
+  <p><%= simple_format @opportunity.product_description %></p>
+<% end %>
+
+<p>
+  <%= link_to "Edit", edit_opportunity_path(@opportunity) %>
+  <%= button_to "Delete", @opportunity, method: :delete, data: { turbo_confirm: "Delete this opportunity and all its channels?" }, class: "link-button" %>
+</p>
+
+<h2>Channels</h2>
+<p><%= link_to "New channel", new_opportunity_channel_path(@opportunity) %></p>
+
+<table>
+  <thead><tr><th>Type</th><th>Outcome</th><th>Sent</th><th>Follow-up due</th></tr></thead>
+  <tbody>
+    <% @channels.each do |channel| %>
+      <tr>
+        <td><%= link_to channel.channel_type.humanize, channel %></td>
+        <td>
+          <span class="badge outcome-<%= channel.outcome_status %>"><%= channel.outcome_status.humanize %></span>
+        </td>
+        <td><%= channel.sent_at&.to_date %></td>
+        <td><%= channel.follow_up_at&.to_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

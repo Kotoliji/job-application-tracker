@@ -1,0 +1,88 @@
+<h1>Dashboard</h1>
+
+<div class="stats-row">
+  <div class="stat"><div class="value"><%= @stats[:organizations] %></div><div class="label">Organizations</div></div>
+  <div class="stat"><div class="value"><%= @stats[:opportunities] %></div><div class="label">Opportunities</div></div>
+  <div class="stat"><div class="value"><%= @stats[:sent] %></div><div class="label">Applications sent</div></div>
+  <div class="stat"><div class="value"><%= @stats[:interviews] %></div><div class="label">Interviews</div></div>
+  <div class="stat"><div class="value"><%= @stats[:offers] %></div><div class="label">Offers</div></div>
+  <div class="stat"><div class="value"><%= @stats[:awaiting_follow_up] %></div><div class="label">Awaiting follow-up</div></div>
+</div>
+
+<% if @upcoming_follow_ups.any? %>
+  <section>
+    <h2>Follow up now</h2>
+    <table>
+      <thead>
+        <tr><th>Organization</th><th>Opportunity</th><th>Channel</th><th>Follow-up due</th></tr>
+      </thead>
+      <tbody>
+        <% @upcoming_follow_ups.each do |channel| %>
+          <tr>
+            <td><%= channel.opportunity.organization.name %></td>
+            <td><%= link_to channel.opportunity.title, channel.opportunity %></td>
+            <td><%= channel.channel_type %></td>
+            <td><%= channel.follow_up_at.to_date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+<% end %>
+
+<section>
+  <h2>Board by outcome</h2>
+  <div class="board">
+    <% Channel.outcome_statuses.each_key do |status| %>
+      <div class="board-column">
+        <h3><%= status.humanize %></h3>
+        <% Channel.where(outcome_status: status).includes(opportunity: :organization).each do |channel| %>
+          <div class="board-card">
+            <%= link_to channel.opportunity.title, channel.opportunity %>
+            <div class="meta"><%= channel.opportunity.organization.name %> &middot; <%= channel.channel_type %></div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<section class="org-group">
+  <h2>Companies</h2>
+  <% if @companies.any? %>
+    <table>
+      <thead><tr><th>Name</th><th>Location</th><th>Opportunities</th></tr></thead>
+      <tbody>
+        <% @companies.each do |organization| %>
+          <tr>
+            <td><%= link_to organization.name, organization %></td>
+            <td><%= organization.location %></td>
+            <td><%= organization.opportunities.size %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No companies yet. <%= link_to "Add one", new_organization_path %>.</p>
+  <% end %>
+</section>
+
+<section class="org-group">
+  <h2>Freelance clients</h2>
+  <% if @freelance_clients.any? %>
+    <table>
+      <thead><tr><th>Name</th><th>Location</th><th>Opportunities</th></tr></thead>
+      <tbody>
+        <% @freelance_clients.each do |organization| %>
+          <tr>
+            <td><%= link_to organization.name, organization %></td>
+            <td><%= organization.location %></td>
+            <td><%= organization.opportunities.size %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No freelance clients yet. <%= link_to "Add one", new_organization_path %>.</p>
+  <% end %>
+</section>

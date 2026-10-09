@@ -1,0 +1,17 @@
+<h1>Organizations</h1>
+
+<p><%= link_to "New organization", new_organization_path %></p>
+
+<table>
+  <thead><tr><th>Name</th><th>Kind</th><th>Location</th><th>Opportunities</th></tr></thead>
+  <tbody>
+    <% @organizations.each do |organization| %>
+      <tr>
+        <td><%= link_to organization.name, organization %></td>
+        <td><span class="badge"><%= organization.kind.humanize %></span></td>
+        <td><%= organization.location %></td>
+        <td><%= organization.opportunities.size %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,7 @@
+Time to follow up
+
+It's been <%= Channel::FOLLOW_UP_AFTER.inspect %> since you sent your application
+to <%= @organization.name %> for <%= @opportunity.title %> via <%= @channel.channel_type %>,
+with no response yet.
+
+<%= opportunity_url(@opportunity) %>

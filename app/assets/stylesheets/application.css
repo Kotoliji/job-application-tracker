@@ -1,0 +1,89 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+:root {
+  --border: #d9d9df;
+  --muted: #666;
+  --bg-subtle: #f6f6f8;
+  --accent: #2a5db0;
+  --danger: #b0312a;
+  --success: #227a3e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #1b1b1f;
+  margin: 0;
+  background: #fff;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar .brand { font-weight: 600; text-decoration: none; color: inherit; }
+.topbar nav a, .topbar nav .link-button { margin-left: 1rem; }
+
+.container { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+
+.flash { padding: 0.6rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
+.flash.notice { background: #e7f3ea; color: var(--success); }
+.flash.alert { background: #fbeaea; color: var(--danger); }
+
+.stats-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+.stat {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  min-width: 120px;
+}
+.stat .value { font-size: 1.5rem; font-weight: 600; }
+.stat .label { color: var(--muted); font-size: 0.85rem; }
+
+.board { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.board-column { background: var(--bg-subtle); border-radius: 6px; padding: 0.75rem; }
+.board-column h3 { margin: 0 0 0.5rem; font-size: 0.85rem; text-transform: uppercase; color: var(--muted); }
+.board-card { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 0.6rem; margin-bottom: 0.5rem; font-size: 0.9rem; }
+.board-card a { text-decoration: none; color: inherit; font-weight: 600; }
+.board-card .meta { color: var(--muted); font-size: 0.8rem; }
+
+section.org-group { margin-bottom: 2rem; }
+section.org-group h2 { border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; }
+
+table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; }
+
+.badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.75rem; background: var(--bg-subtle); }
+.badge.priority-high { background: #fde8e6; color: var(--danger); }
+.badge.outcome-offer { background: #e3f6e9; color: var(--success); }
+.badge.outcome-rejected { background: #f3f3f3; color: var(--muted); }
+
+form.form { display: flex; flex-direction: column; gap: 0.75rem; max-width: 540px; }
+form.form label { font-weight: 600; font-size: 0.9rem; }
+form.form input, form.form select, form.form textarea {
+  padding: 0.5rem; border: 1px solid var(--border); border-radius: 4px; font: inherit;
+}
+.actions { margin-top: 1rem; display: flex; gap: 0.75rem; }
+.timeline { list-style: none; padding: 0; }
+.timeline li { border-left: 2px solid var(--border); padding: 0.4rem 0 0.4rem 0.8rem; margin-bottom: 0.4rem; }
+.timeline time { color: var(--muted); font-size: 0.8rem; display: block; }

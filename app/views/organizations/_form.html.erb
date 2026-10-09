@@ -1,0 +1,41 @@
+<%= form_with model: organization, class: "form" do |f| %>
+  <% if organization.errors.any? %>
+    <div class="flash alert">
+      <strong><%= pluralize(organization.errors.count, "error") %> prevented this organization from being saved:</strong>
+      <ul>
+        <% organization.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :kind %>
+    <%= f.select :kind, Organization.kinds.keys.map { |k| [k.humanize, k] } %>
+  </div>
+
+  <div>
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+
+  <div>
+    <%= f.label :website %>
+    <%= f.text_field :website %>
+  </div>
+
+  <div>
+    <%= f.label :notes %>
+    <%= f.text_area :notes, rows: 4 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

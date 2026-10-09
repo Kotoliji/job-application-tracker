@@ -1,0 +1,32 @@
+<h1><%= @organization.name %></h1>
+<p>
+  <span class="badge"><%= @organization.kind.humanize %></span>
+  <% if @organization.location.present? %> &middot; <%= @organization.location %><% end %>
+  <% if @organization.website.present? %> &middot; <%= link_to @organization.website, @organization.website %><% end %>
+</p>
+<% if @organization.notes.present? %>
+  <p><%= simple_format @organization.notes %></p>
+<% end %>
+
+<p>
+  <%= link_to "Edit", edit_organization_path(@organization) %>
+  <%= button_to "Delete", @organization, method: :delete, data: { turbo_confirm: "Delete this organization and all its opportunities?" }, class: "link-button" %>
+</p>
+
+<h2>Opportunities</h2>
+<p><%= link_to "New opportunity", new_organization_opportunity_path(@organization) %></p>
+
+<table>
+  <thead><tr><th>Title</th><th>Track</th><th>Priority</th><th>Posting status</th><th>Channels</th></tr></thead>
+  <tbody>
+    <% @opportunities.each do |opportunity| %>
+      <tr>
+        <td><%= link_to opportunity.title, opportunity %></td>
+        <td><%= opportunity.track.humanize %></td>
+        <td><span class="badge <%= "priority-high" if opportunity.high? %>"><%= opportunity.priority.humanize %></span></td>
+        <td><%= opportunity.posting_status.humanize %></td>
+        <td><%= opportunity.channels.size %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
